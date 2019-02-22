@@ -15,13 +15,13 @@ resources:
 - name: configuration
   type: git
   source:
-    uri: git@github.com:ciberkleid/platform-automation.git
+    uri: git@github.com:msathe-tech/platform-automation.git
     private_key: {{git_private_key}}
 
 - name: credentials
   type: git
   source:
-    uri: git@github.com:ciberkleid/platform-automation-private.git
+    uri: git@github.com:msathe-tech/platform-automation-private.git
     private_key: {{git_private_key}}
 
 jobs:
@@ -59,52 +59,6 @@ jobs:
     output_mapping:
       interpolated-files: configuration
 
-  - task: download-mysql
-    image: pcf-automation-image
-    file: configuration/fixes/tasks/download-product.yml
-    input_mapping:
-      config: configuration
-      secrets: credentials
-    params:
-      CONFIG_FILE: ((foundation))/config/versions/mysql.yml
-      VARS_FILES: secrets/creds-toolsmiths-pas.yml
-
-  - task: upload-mysql
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/upload-product.yml
-    input_mapping:
-      product: downloaded-product
-      env: configuration
-    params:
-      ENV_FILE: ((foundation))/config/templates/env.yml
-
-  - task: stage-product
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/stage-product.yml
-    input_mapping:
-      product: downloaded-product
-      env: configuration
-    params:
-      ENV_FILE: ((foundation))/config/templates/env.yml
-
-  - task: upload-stemcell
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/upload-stemcell.yml
-    input_mapping:
-      env: configuration
-      stemcell: downloaded-stemcell
-    params:
-      ENV_FILE: ((foundation))/config/templates/env.yml
-
-  - task: assign-stemcell
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/assign-stemcell.yml
-    input_mapping:
-      env: configuration
-      config: assign-stemcell-config
-    params:
-      ENV_FILE: ((foundation))/config/templates/env.yml
-
   - task: configure-mysql
     image: pcf-automation-image
     file: pcf-automation-tasks/tasks/configure-product.yml
@@ -116,7 +70,6 @@ jobs:
       CONFIG_FILE: ((foundation))/config/templates/mysql.yml
       VARS_FILES: config/((foundation))/config/defaults/mysql.yml vars/((foundation))/config/vars/mysql.yml
       ENV_FILE: ((foundation))/config/templates/env.yml
-      OPS_FILES: ((foundation))/config/features/backups_selector-gcs.yml
 
 - name: apply-mysql-changes
   serial: true
