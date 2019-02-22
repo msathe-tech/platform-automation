@@ -65,10 +65,11 @@ jobs:
     input_mapping:
       config: configuration
       env: configuration
-      vars: configuration
+      secrets: credentials
     params:
-      CONFIG_FILE: ((foundation))/config/templates/mysql.yml
-      VARS_FILES: config/((foundation))/config/defaults/mysql.yml vars/((foundation))/config/vars/mysql.yml
+      CONFIG_FILE: ((foundation))/config/product.yml
+      OPS_FILES: ((foundation))/config/features/backup_selector-gcs.yml
+      VARS_FILES: ((foundation))/config/product-default-vars.yml ((foundation))/config/resource-vars.yml ((foundation))/config/errand-vars.yml secrets/creds-toolsmiths-pas.yml
       ENV_FILE: ((foundation))/config/templates/env.yml
 
 - name: apply-mysql-changes
