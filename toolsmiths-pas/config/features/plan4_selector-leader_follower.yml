@@ -1,0 +1,24 @@
+- type: replace
+  path: /product-properties/.properties.plan4_selector?
+  value:
+    value: leader_follower
+- type: replace
+  path: /product-properties/.properties.plan4_selector.leader_follower.az_multi_select?
+  value:
+    value: ((plan4_selector/leader_follower/az_multi_select))
+- type: replace
+  path: /product-properties/.properties.plan4_selector.leader_follower.access_dropdown?
+  value:
+    value: ((plan4_selector/leader_follower/access_dropdown))
+- type: replace
+  path: /product-properties/.properties.plan4_selector.leader_follower.name?
+  value:
+    value: ((plan4_selector/leader_follower/name))
+- type: replace
+  path: /product-properties/.properties.plan4_selector.leader_follower.description?
+  value:
+    value: ((plan4_selector/leader_follower/description))
+- type: replace
+  path: /product-properties/.properties.plan4_selector.leader_follower.paid_plan?
+  value:
+    value: ((plan4_selector/leader_follower/paid_plan))

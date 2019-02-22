@@ -1,0 +1,20 @@
+- type: replace
+  path: /product-properties/.properties.syslog_migration_selector?
+  value:
+    value: enabled
+- type: replace
+  path: /product-properties/.properties.syslog_migration_selector.enabled.address?
+  value:
+    value: ((syslog_migration_selector/enabled/address))
+- type: replace
+  path: /product-properties/.properties.syslog_migration_selector.enabled.port?
+  value:
+    value: ((syslog_migration_selector/enabled/port))
+- type: replace
+  path: /product-properties/.properties.syslog_migration_selector.enabled.transport_protocol?
+  value:
+    value: ((syslog_migration_selector/enabled/transport_protocol))
+- type: replace
+  path: /product-properties/.properties.syslog_migration_selector.enabled.tls_enabled?
+  value:
+    value: ((syslog_migration_selector/enabled/tls_enabled))
