@@ -68,34 +68,6 @@ jobs:
       secrets: credentials
     params:
       CONFIG_FILE: ((foundation))/config/product.yml
-      OPS_FILES: config/((foundation))/config/features/backup_selector-gcs.yml
+      OPS_FILES: config/((foundation))/config/features/backups_selector-gcs.yml
       VARS_FILES: config/((foundation))/config/product-default-vars.yml config/((foundation))/config/resource-vars.yml config/((foundation))/config/errand-vars.yml secrets/creds-toolsmiths-pas.yml
-      ENV_FILE: ((foundation))/config/templates/env.yml
-
-- name: apply-mysql-changes
-  serial: true
-  plan:
-  - aggregate:
-    - get: configuration
-      trigger: true
-      passed: [ mysql ]
-      params:
-        unpack: true
-    - get: pcf-automation-image
-      resource: pcf-automation
-      params:
-        unpack: true
-        globs: ["*image*"]
-    - get: pcf-automation-tasks
-      resource: pcf-automation
-      params:
-        unpack: true
-        globs: ["*tasks*"]
-
-  - task: apply-product-changes
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/apply-changes.yml
-    input_mapping:
-      env: configuration
-    params:
       ENV_FILE: ((foundation))/config/templates/env.yml
