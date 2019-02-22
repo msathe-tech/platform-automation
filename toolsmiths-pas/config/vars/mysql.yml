@@ -1,8 +1,8 @@
 deprecated_bindings_string: X
 global_recipient_email: donotreply@nowhere.io
-network_name: mogadishu-pas-subnet
+network_name: lancaster-pas-subnet
 plan1_selector/single_node/az_multi_select: [ 'us-central1-f' ]
 plan2_selector/single_node/az_multi_select: [ 'us-central1-f' ]
 plan3_selector/single_node/az_multi_select: [ 'us-central1-f' ]
-service_network_name: mogadishu-services-subnet
+service_network_name: lancaster-services-subnet
 singleton_availability_zone: us-central1-f

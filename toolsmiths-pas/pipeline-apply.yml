@@ -24,13 +24,13 @@ resources:
     uri: git@github.com:msathe-tech/platform-automation-private.git
     private_key: {{git_private_key}}
 
-jobs:
-- name: mysql
+- name: apply-mysql-changes
   serial: true
   plan:
   - aggregate:
     - get: configuration
       trigger: true
+      passed: [ mysql ]
       params:
         unpack: true
     - get: pcf-automation-image
@@ -59,15 +59,10 @@ jobs:
     output_mapping:
       interpolated-files: configuration
 
-  - task: configure-mysql
+  - task: apply-product-changes
     image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/configure-product.yml
+    file: pcf-automation-tasks/tasks/apply-changes.yml
     input_mapping:
-      config: configuration
       env: configuration
-      secrets: credentials
     params:
-      CONFIG_FILE: ((foundation))/config/product.yml
-      OPS_FILES: config/((foundation))/config/features/backups_selector-gcs.yml
-      VARS_FILES: config/((foundation))/config/product-default-vars.yml config/((foundation))/config/resource-vars.yml config/((foundation))/config/errand-vars.yml secrets/creds-toolsmiths-pas.yml
       ENV_FILE: ((foundation))/config/templates/env.yml
