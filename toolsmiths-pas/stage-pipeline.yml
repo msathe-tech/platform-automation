@@ -59,58 +59,48 @@ jobs:
     output_mapping:
       interpolated-files: configuration
 
-  - task: configure-mysql
+  - task: download-mysql
     image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/configure-product.yml
+    file: configuration/fixes/tasks/download-product.yml
     input_mapping:
       config: configuration
-      env: configuration
       secrets: credentials
     params:
-      CONFIG_FILE: ((foundation))/config/product.yml
-      OPS_FILES: config/((foundation))/config/features/backups_selector-gcs.yml
-      VARS_FILES: config/((foundation))/config/product-default-vars.yml config/((foundation))/config/resource-vars.yml config/((foundation))/config/errand-vars.yml secrets/creds-toolsmiths-pas.yml
+      CONFIG_FILE: ((foundation))/config/versions/mysql.yml
+      VARS_FILES: secrets/creds-toolsmiths-pas.yml
+
+  - task: upload-mysql
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/upload-product.yml
+    input_mapping:
+      product: downloaded-product
+      env: configuration
+    params:
       ENV_FILE: ((foundation))/config/templates/env.yml
 
-- name: apply-mysql-changes
-  serial: true
-  plan:
-  - aggregate:
-    - get: configuration
-      trigger: true
-      passed: [ mysql ]
-      params:
-        unpack: true
-    - get: pcf-automation-image
-      resource: pcf-automation
-      params:
-        unpack: true
-        globs: ["*image*"]
-    - get: pcf-automation-tasks
-      resource: pcf-automation
-      params:
-        unpack: true
-        globs: ["*tasks*"]
-    - get: credentials
-      params:
-        unpack: true
-
-  - task: creds-interpolate
+  - task: stage-product
     image: pcf-automation-image
-    file: configuration/fixes/tasks/creds-interpolate.yml
+    file: pcf-automation-tasks/tasks/stage-product.yml
     input_mapping:
-      config: configuration
-      vars: credentials
+      product: downloaded-product
+      env: configuration
     params:
-      VARS_FILES: vars/creds-toolsmiths-pas.yml
-      CONFIG_FILE: ((foundation))/config/templates/env.yml
-    output_mapping:
-      interpolated-files: configuration
+      ENV_FILE: ((foundation))/config/templates/env.yml
 
-  - task: apply-product-changes
+  - task: upload-stemcell
     image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/apply-changes.yml
+    file: pcf-automation-tasks/tasks/upload-stemcell.yml
     input_mapping:
       env: configuration
+      stemcell: downloaded-stemcell
+    params:
+      ENV_FILE: ((foundation))/config/templates/env.yml
+
+  - task: assign-stemcell
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/assign-stemcell.yml
+    input_mapping:
+      env: configuration
+      config: assign-stemcell-config
     params:
       ENV_FILE: ((foundation))/config/templates/env.yml
