@@ -15,14 +15,13 @@ resources:
 - name: configuration
   type: git
   source:
-    uri: git@github.com:msathe-tech/platform-automation.git
-    private_key: {{git_private_key}}
+    uri: https://github.com/msathe-tech/platform-automation.git
 
 - name: credentials
   type: git
   source:
     uri: git@github.com:msathe-tech/platform-automation-private.git
-    private_key: {{git_private_key}}
+    private_key: ((git_private_key))
 
 - name: tcg-config 
   type: git 
@@ -36,9 +35,6 @@ jobs:
   - aggregate:
     - get: configuration
       trigger: true
-      params:
-        unpack: true
-    - get: tcg-config 
       params:
         unpack: true
     - get: pcf-automation-image
@@ -67,16 +63,48 @@ jobs:
     output_mapping:
       interpolated-files: configuration
 
-  - task: tileconfig-((pivnet-product-slug))
+  - task: download-((pivnet-product-slug))
     image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/configure-product.yml
+    file: configuration/fixes/tasks/download-product.yml
     input_mapping:
-      config: tcg-config
-      env: configuration
-      vars: tcg-config
+      config: configuration
       secrets: credentials
     params:
-      CONFIG_FILE: ((pivnet-product-slug))/((product-version))/product.yml
-      OPS_FILES: config/((pivnet-product-slug))/((product-version))/features/backups_selector-s3.yml
-      VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml vars/((pivnet-product-slug))/((product-version))/resource-vars.yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-toolsmiths-pas.yml
+      CONFIG_FILE: ((foundation))/config/versions/((pivnet-product-slug)).yml
+      VARS_FILES: secrets/creds-toolsmiths-pas.yml
+
+  - task: upload-product
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/upload-product.yml
+    input_mapping:
+      product: downloaded-product
+      env: configuration
+    params:
+      ENV_FILE: ((foundation))/config/templates/env.yml
+
+  - task: stage-product
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/stage-product.yml
+    input_mapping:
+      product: downloaded-product
+      env: configuration
+    params:
+      ENV_FILE: ((foundation))/config/templates/env.yml
+
+  - task: upload-stemcell
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/upload-stemcell.yml
+    input_mapping:
+      env: configuration
+      stemcell: downloaded-stemcell
+    params:
+      ENV_FILE: ((foundation))/config/templates/env.yml
+
+  - task: assign-stemcell
+    image: pcf-automation-image
+    file: pcf-automation-tasks/tasks/assign-stemcell.yml
+    input_mapping:
+      env: configuration
+      config: assign-stemcell-config
+    params:
       ENV_FILE: ((foundation))/config/templates/env.yml
