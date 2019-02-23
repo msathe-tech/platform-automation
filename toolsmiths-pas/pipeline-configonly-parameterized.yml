@@ -15,14 +15,13 @@ resources:
 - name: configuration
   type: git
   source:
-    uri: git@github.com:msathe-tech/platform-automation.git
-    private_key: {{git_private_key}}
+    uri: https://github.com/msathe-tech/platform-automation.git
 
 - name: credentials
   type: git
   source:
     uri: git@github.com:msathe-tech/platform-automation-private.git
-    private_key: {{git_private_key}}
+    private_key: ((git_private_key))
 
 - name: tcg-config 
   type: git 
