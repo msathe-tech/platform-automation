@@ -53,7 +53,7 @@ jobs:
       config: configuration
       vars: credentials
     params:
-      VARS_FILES: vars/creds-toolsmiths-pas.yml
+      VARS_FILES: vars/creds-toolsmiths-pas-((pivnet-product-slug)).yml
       CONFIG_FILE: ((foundation))/config/templates/env.yml
     output_mapping:
       interpolated-files: configuration
