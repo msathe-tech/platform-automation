@@ -1,0 +1,8 @@
+deploy-service-broker/broker_max_instances: 100
+deploy-service-broker/disable_cert_check: false
+deploy-service-broker/message_bus_service: p-rabbitmq
+deploy-service-broker/message_bus_service_plan: standard
+deploy-service-broker/persistence_store_service: p.mysql
+deploy-service-broker/persistence_store_service_plan: db-small
+deploy-service-broker/secure_credentials: false
+register-service-broker/enable_global_access: true
