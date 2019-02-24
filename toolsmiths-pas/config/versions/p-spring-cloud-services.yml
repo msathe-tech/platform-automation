@@ -1,0 +1,5 @@
+pivnet-api-token: ((pivnet_token))
+pivnet-file-glob: "p-spring-cloud-services*.pivotal"
+pivnet-product-slug: "p-spring-cloud-services"
+product-version: "2.0.6"
+stemcell-iaas: "google"
