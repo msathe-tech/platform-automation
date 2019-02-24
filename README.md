@@ -1,9 +1,14 @@
 # platform-automation-example
 Example Repository for using platform-automation
 
-Quick help
+#Quick help
 
-#Fully parameterized (no slug specifics in pipeline yml) stage & config - rabbit. resource-vars fix
+Make sure you have slug specific creds file in your private repo.
+
+
+# Setup RabbitMQ tile
+Fully parameterized stage & config - rabbit. resource-vars fix
+
 fly -t w sp -p stage-config-rabbit-resourcevars-fix \
 --config toolsmiths-pas/pipeline-stage-config-parameterized-localvars-rabbit-fix.yml \
 --load-vars-from ~/workspace/pcf-automation/platform-automation-private/creds-toolsmiths-pas-p-rabbitmq.yml \
@@ -11,7 +16,10 @@ fly -t w sp -p stage-config-rabbit-resourcevars-fix \
 --var "feature-ops-file=syslog_selector-disabled" \
 --var "git_private_key=$(cat ~/.ssh/id_rsa)"
 
-#Fully parameterized (no slug specifics in pipeline yml) stage & config - mysql
+# Setup MySQL tile
+
+Fully parameterized (no slug specifics in pipeline yml) stage & config - mysql
+
 fly -t w sp -p stage-config-mysql \
 --config toolsmiths-pas/pipeline-stage-config-parameterized-localvars.yml \
 --load-vars-from ~/workspace/pcf-automation/platform-automation-private/creds-toolsmiths-pas-pivotal-mysql.yml \
