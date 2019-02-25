@@ -4,7 +4,8 @@ Example Repository for using platform-automation
 #Prerequisites
 
 1. Refer to the sample credentials file used in this lab in 'credentials' folder.
-2. Make sure you have git ssh configured
+2. Make sure you crate a private repo and store these credentials files there in the root folder of the repo.
+3. Make sure you have git ssh configured to access your private repo.
 
 # Stage and configure Rabbit MQ tile
 
