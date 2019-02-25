@@ -34,7 +34,7 @@ jobs:
   plan:
   - aggregate:
     - get: configuration
-      trigger: true
+      trigger: false
       params:
         unpack: true
     - get: pcf-automation-image
