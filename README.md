@@ -58,12 +58,15 @@ Following need to be available in creds-toolsmiths-pas-pivotal-mysql of your pri
 1. all params in creds-toolsmiths-pas-.yml
 
 2. Add following to that list
+
 deprecated_bindings_string: X
 global_recipient_email: some@email.id
 network_name: your-pas-subnet
+
 plan1_selector/single_node/az_multi_select: AZ in array format, e.g. [ 'us-central1-f' ]
 plan2_selector/single_node/az_multi_select: AZ in array format, e.g. [ 'us-central1-f' ]
 plan3_selector/single_node/az_multi_select: AZ in array format, e.g. [ 'us-central1-f' ]
+
 service_network_name: hermosabeach-services-subnet
 singleton_availability_zone: us-central1-f
 
@@ -90,6 +93,7 @@ Following need to be available in creds-toolsmiths-pas-p-spring-cloud-services o
 1. all params in creds-toolsmiths-pas-.yml
 
 2. Add following to that list
+
 singleton_availability_zone: us-central1-f
 network_name: your-pas-subnet
 service_network_name: your-services-subnet
