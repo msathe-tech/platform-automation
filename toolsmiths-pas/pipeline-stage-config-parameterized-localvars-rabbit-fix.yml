@@ -157,6 +157,6 @@ jobs:
       secrets: credentials
     params:
       CONFIG_FILE: ((pivnet-product-slug))/((product-version))/product.yml
-      OPS_FILES: config/((pivnet-product-slug))/((product-version))/features/((feature-ops-file)).yml
-      VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml env/((foundation))/config/resource-vars-((pivnet-product-slug)).yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
+      OPS_FILES: config/((pivnet-product-slug))/((product-version))/features/multitenant_support-enabled.yml config/((pivnet-product-slug))/((product-version))/features/syslog_selector-disabled.yml
+      VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml vars/((pivnet-product-slug))/((product-version))/resource-vars.yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
       ENV_FILE: ((foundation))/config/templates/env.yml
