@@ -3,13 +3,20 @@ Example Repository for using platform-automation
 
 #Quick help
 
-Make sure you have a common creds in your private repo in following format -
+Make sure you have a common creds in your private repo in following format.
+
 File name - creds-toolsmiths-pas-.yml
+
 foundation: toolsmiths-pas
+
 opsman_host: pcf.somedomain.cf-app.com
+
 opsman_userid: pivotalcf
+
 opsman_password: opsman-password
+
 opsman_decryption_passphrase:
+
 pivnet_token: Your pivnet token
 
 # Stage and configure Rabbit MQ tile
