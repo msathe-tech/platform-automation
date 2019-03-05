@@ -9,7 +9,7 @@ resources:
 - name: pcf-automation
   type: pivnet
   source:
-    api_token: {{pivnet_token}}
+    api_token: ((pivnet_token))
     product_slug: platform-automation
 
 - name: configuration
@@ -29,12 +29,12 @@ resources:
     uri: https://github.com/DaxterM/tile-configuration.git 
 
 jobs:
-- name: ((pivnet-product-slug))
+- name: test-ops-interpolate
   serial: true
   plan:
   - aggregate:
     - get: configuration
-      trigger: true
+      trigger: false
       params:
         unpack: true
     - get: tcg-config 
@@ -54,6 +54,18 @@ jobs:
       params:
         unpack: true
 
+  - task: ops-interpolate
+    image: pcf-automation-image
+    file: configuration/fixes/tasks/creds-interpolate.yml
+    input_mapping:
+      config: configuration
+      vars: credentials
+    params:
+      VARS_FILES: vars/creds-toolsmiths-pas-((pivnet-product-slug)).yml
+      CONFIG_FILE: ((foundation))/config/templates/product-ops.yml
+    output_mapping:
+      interpolated-files: configuration
+
   - task: creds-interpolate
     image: pcf-automation-image
     file: configuration/fixes/tasks/creds-interpolate.yml
@@ -65,17 +77,3 @@ jobs:
       CONFIG_FILE: ((foundation))/config/templates/env.yml
     output_mapping:
       interpolated-files: configuration
-
-  - task: tileconfig-((pivnet-product-slug))
-    image: pcf-automation-image
-    file: pcf-automation-tasks/tasks/configure-product.yml
-    input_mapping:
-      config: tcg-config
-      env: configuration
-      vars: tcg-config
-      secrets: credentials
-    params:
-      CONFIG_FILE: ((pivnet-product-slug))/((product-version))/product.yml
-      OPS_FILES: config/((pivnet-product-slug))/((product-version))/features/((feature-ops-file)).yml
-      VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml vars/((pivnet-product-slug))/((product-version))/resource-vars.yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
-      ENV_FILE: ((foundation))/config/templates/env.yml
