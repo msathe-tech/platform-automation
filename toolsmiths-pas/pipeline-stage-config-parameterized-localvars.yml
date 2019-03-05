@@ -157,6 +157,6 @@ jobs:
       secrets: credentials
     params:
       CONFIG_FILE: ((pivnet-product-slug))/((product-version))/product.yml
-      OPS_FILES: config/((pivnet-product-slug))/((product-version))/features/((feature-ops-file)).yml
+      OPS_FILES: ((ops_files))
       VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml vars/((pivnet-product-slug))/((product-version))/resource-vars.yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
       ENV_FILE: ((foundation))/config/templates/env.yml
