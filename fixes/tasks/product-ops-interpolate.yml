@@ -48,7 +48,7 @@ run:
     echo "OPS_FILES"
     echo $OPS_FILES
 
-    if [ ${#PS_FILES} == "null" ]; then
+    if [ ${OPS_FILES} == "null" ]; then
       echo "OPS_FILES has no matter";
     else
       echo "OPS_FILES has matter";
