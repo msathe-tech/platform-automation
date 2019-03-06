@@ -54,6 +54,17 @@ jobs:
       params:
         unpack: true
 
+  - task: product-ops-interpolate
+    image: pcf-automation-image
+    file: configuration/fixes/tasks/product-ops-interpolate.yml
+    input_mapping:
+      config: tcg-config
+      secrets: credentials
+    params:
+      SECRETS_FILE: secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
+    output_mapping:
+      interpolated-files: tcg-config
+
   - task: creds-interpolate
     image: pcf-automation-image
     file: configuration/fixes/tasks/creds-interpolate.yml
@@ -65,17 +76,6 @@ jobs:
       CONFIG_FILE: ((foundation))/config/templates/env.yml
     output_mapping:
       interpolated-files: configuration
-
-  - task: product-ops-interpolate
-    image: pcf-automation-image
-    file: configuration/fixes/tasks/product-ops-interpolate.yml
-    input_mapping:
-      config: tcg-config
-      secrets: credentials
-    params:
-      SECRETS_FILE: secrets/creds-toolsmiths-pas-((pivnet-product-slug)).yml
-    output_mapping:
-      interpolated-files: tcg-config
 
   - task: tileconfig-((pivnet-product-slug))
     image: pcf-automation-image

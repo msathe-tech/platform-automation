@@ -51,6 +51,7 @@ run:
     ops_files_args=("")
     for of in ${OPS_FILES}
     do
+      echo $of
       ops_files_args+=("-o config/${of}")
     done
 
