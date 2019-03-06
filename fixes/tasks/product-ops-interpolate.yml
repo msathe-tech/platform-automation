@@ -48,22 +48,6 @@ run:
     echo "OPS_FILES"
     echo $OPS_FILES
 
-    if [ ${OPS_FILES} == "null" ]; then
-      echo "OPS_FILES has no matter";
-    else
-      echo "OPS_FILES has matter";
-    fi;
-
-    ops_files_args=("")
-    for of in ${OPS_FILES}
-    do
-      echo $of
-      ops_files_args+=("-o config/${of}")
-    done
-
-    echo "ops_files_args"
-    echo ${ops_files_args[@]}
-
     dirname config
     echo "copy files from original config to interpolated-files"
     mkdir -p interpolated-files
@@ -72,20 +56,31 @@ run:
     cd ..
     ls interpolated-files
 
-    echo config/${pivnet_product_slug}/${product_version}/product.yml
-
-    PRODUCT_FILE=("config/${pivnet_product_slug}/${product_version}/product.yml")
-    echo $PRODUCT_FILE
-
-    echo "runtime bosh interpolate"
-    bosh int $PRODUCT_FILE ${ops_files_args[@]}
-
     PRODUCT_AND_OPS_FILE=("interpolated-files/${pivnet_product_slug}/${product_version}/product_and_ops.yml")
     echo $PRODUCT_AND_OPS_FILE
     touch $PRODUCT_AND_OPS_FILE
     ls interpolated-files/${pivnet_product_slug}/${product_version}
 
-    echo "persistent bosh interpolate"
-    bosh int $PRODUCT_FILE ${ops_files_args[@]} > ${PRODUCT_AND_OPS_FILE}
+    if [ ${OPS_FILES} == "null" ]; then
+      echo "OPS_FILES has no matter";
+      cp $PRODUCT_FILE ${PRODUCT_AND_OPS_FILE}
+    else
+      echo "OPS_FILES has matter";
+      ops_files_args=("")
+      for of in ${OPS_FILES}
+      do
+        echo $of
+        ops_files_args+=("-o config/${of}")
+      done
+
+      echo "ops_files_args"
+      echo ${ops_files_args[@]}
+
+      echo "runtime bosh interpolate"
+      bosh int $PRODUCT_FILE ${ops_files_args[@]}
+
+      echo "persistent bosh interpolate"
+      bosh int $PRODUCT_FILE ${ops_files_args[@]} > ${PRODUCT_AND_OPS_FILE}
+    fi;
 
 # code_snippet creds-interpolate end
