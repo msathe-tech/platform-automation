@@ -27,10 +27,16 @@ run:
     cat /var/version && echo ""
     set -eux
 
+    pivnet_product_slug=$(om interpolate \
+      --config ${SECRETS_FILE} \
+      --path /pivnet-product-slug)
+
+    echo "pivnet_product_slug"
+    echo $pivnet_product_slug
 
     product_version=$(om interpolate \
       --config ${SECRETS_FILE} \
-      --path /ops_files)
+      --path /product-version)
 
     echo "product_version"
     echo $product_version
@@ -50,4 +56,12 @@ run:
 
     echo "ops_files_args"
     echo $ops_files_args
+
+    dirname config
+    echo "copy files from original config to interpolated-files"
+    mkdir -p interpolated-files
+    cd config
+    cp -R . ../interpolated-files/
+    cd ..
+    ls interpolated-files
 # code_snippet creds-interpolate end
