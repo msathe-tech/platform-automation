@@ -66,12 +66,18 @@ run:
     cd ..
     ls interpolated-files
 
-    echo config/{pivnet_product_slug}/{product_version}/product.yml
+    echo config/${pivnet_product_slug}/${product_version}/product.yml
+
+    PRODUCT_FILE=("config/${pivnet_product_slug}/${product_version}/product.yml")
+    echo $PRODUCT_FILE
 
     echo "runtime bosh interpolate"
-    bosh int config/{pivnet_product_slug}/{product_version}/product.yml ${ops_files_args[@]}
+    bosh int $PRODUCT_FILE ${ops_files_args[@]}
+
+    PRODUCT_AND_OPS_FILE=("config/${pivnet_product_slug}/${product_version}/product_and_ops.yml")
+    echo $PRODUCT_AND_OPS_FILE
 
     echo "persistent bosh interpolate"
-    bosh int config/{pivnet_product_slug}/{product_version}/product.yml ${ops_files_args[@]} > interpolated-files/{pivnet_product_slug}/{product_version}/product_and_ops.yml
+    bosh int $PRODUCT_FILE ${ops_files_args[@]} > interpolated-files/$PRODUCT_AND_OPS_FILE
 
 # code_snippet creds-interpolate end
