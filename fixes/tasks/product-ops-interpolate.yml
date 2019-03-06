@@ -48,10 +48,10 @@ run:
     echo "OPS_FILES"
     echo $OPS_FILES
 
-    if [ ${#OPS_FILES} \> 0 ]; then
-      echo "OPS_FILES has matter";
-    else
+    if [ ${#PS_FILES} == "null" ]; then
       echo "OPS_FILES has no matter";
+    else
+      echo "OPS_FILES has matter";
     fi;
 
     ops_files_args=("")
@@ -76,8 +76,6 @@ run:
 
     PRODUCT_FILE=("config/${pivnet_product_slug}/${product_version}/product.yml")
     echo $PRODUCT_FILE
-
-
 
     echo "runtime bosh interpolate"
     bosh int $PRODUCT_FILE ${ops_files_args[@]}
