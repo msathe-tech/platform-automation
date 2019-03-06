@@ -74,10 +74,12 @@ run:
     echo "runtime bosh interpolate"
     bosh int $PRODUCT_FILE ${ops_files_args[@]}
 
-    PRODUCT_AND_OPS_FILE=("config/${pivnet_product_slug}/${product_version}/product_and_ops.yml")
+    PRODUCT_AND_OPS_FILE=("interpolated-files/${pivnet_product_slug}/${product_version}/product_and_ops.yml")
     echo $PRODUCT_AND_OPS_FILE
+    touch $PRODUCT_AND_OPS_FILE
+    ls interpolated-files/${pivnet_product_slug}/${product_version}
 
     echo "persistent bosh interpolate"
-    bosh int $PRODUCT_FILE ${ops_files_args[@]} > interpolated-files/${PRODUCT_AND_OPS_FILE}
+    bosh int $PRODUCT_FILE ${ops_files_args[@]} > ${PRODUCT_AND_OPS_FILE}
 
 # code_snippet creds-interpolate end
