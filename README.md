@@ -4,8 +4,8 @@ Example Repository for using platform-automation
 #Prerequisites
 
 1. Refer to the sample credentials file used in this lab in 'credentials' folder.
-2. Make sure you have Ops Files for each stub in following format
-     stub/version/features/opsfile.yml 
+2. Make sure you have Ops Files for each stub in following format: 
+     stub/version/features/opsfile.yml
 3. Make sure you crate a private repo and store these credentials files there in the root folder of the repo.
 4. Make sure you have git ssh configured to access your private repo.
 
