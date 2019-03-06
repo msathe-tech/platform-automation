@@ -56,6 +56,10 @@ run:
     cd ..
     ls interpolated-files
 
+    echo config/${pivnet_product_slug}/${product_version}/product.yml
+    PRODUCT_FILE=("config/${pivnet_product_slug}/${product_version}/product.yml")
+    echo $PRODUCT_FILE
+
     PRODUCT_AND_OPS_FILE=("interpolated-files/${pivnet_product_slug}/${product_version}/product_and_ops.yml")
     echo $PRODUCT_AND_OPS_FILE
     touch $PRODUCT_AND_OPS_FILE
