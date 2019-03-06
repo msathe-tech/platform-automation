@@ -56,7 +56,7 @@ run:
     done
 
     echo "ops_files_args"
-    echo ${ops_files_args}
+    echo ${ops_files_args[@]}
 
     dirname config
     echo "copy files from original config to interpolated-files"
