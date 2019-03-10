@@ -1,0 +1,61 @@
+az-configuration: [
+  {
+    name: ((az-configuration/az1))
+  }
+]
+properties-configuration:
+  director_configuration:
+    ntp_servers_string: ((director_configuration/ntp_servers_string))
+    post_deploy_enabled: ((director_configuration/post_deploy_enabled))
+    resurrector_enabled: ((director_configuration/resurrector_enabled))
+  iaas_configuration:
+    additional_cloud_properties: {
+      access_key_id: ((iaas_configuration/additional_cloud_properties/access_key_id)),
+      secret_access_key: ((iaas_configuration/additional_cloud_properties/secret_access_key))
+    }
+    key_pair_name: ((iaas_configuration/key_pair_name))
+    region: ((iaas_configuration/region))
+    security_group: ((iaas_configuration/security_group))
+    ssh_private_key: ((iaas_configuration/ssh_private_key))
+  security_configuration:
+    opsmanager_root_ca_trusted_certs: ((security_configuration/opsmanager_root_ca_trusted_certs))
+networks-configuration:
+  networks: [
+    {
+      name: ((networks-configuration/networks/infra/name)),
+      subnets: [
+        {
+          iaas_identifier: ((networks-configuration/networks/infra/az1/subnet_id)),
+          cidr: ((networks-configuration/networks/infra/az1/cidr)),
+          reserved_ip_ranges: ((networks-configuration/networks/infra/az1/reserved_ip_ranges)),
+          dns: ((networks-configuration/networks/infra/az1/dns)),
+          gateway: ((networks-configuration/networks/infra/az1/gateway)),
+          availability_zone_names: [
+            ((az-configuration/az1)),
+          ]
+        }
+      ]
+    },
+    {
+      name: ((networks-configuration/networks/pas/name)),
+      subnets: [
+        {
+          iaas_identifier: ((networks-configuration/networks/pas/az1/subnet_id)),
+          cidr: ((networks-configuration/networks/pas/az1/cidr)),
+          reserved_ip_ranges: ((networks-configuration/networks/pas/az1/reserved_ip_ranges)),
+          dns: ((networks-configuration/networks/pas/az1/dns)),
+          gateway: ((networks-configuration/networks/pas/az1/gateway)),
+          availability_zone_names: [
+            ((az-configuration/az1)),
+          ]
+        }
+      ]
+    }
+  ]
+network-assignment:
+  singleton_availability_zone: {
+    name: ((az-configuration/az1))
+  }
+  network: {
+    name: ((networks-configuration/networks/infra/name))
+  }
