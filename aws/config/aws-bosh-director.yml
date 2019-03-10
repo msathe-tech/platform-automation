@@ -59,3 +59,10 @@ network-assignment:
   network: {
     name: ((networks-configuration/networks/infra/name))
   }
+
+resource-configuration:
+  compilation:
+    instances: ((resource-configuration/compilation/instances))
+  director:
+    instance_type:
+      id: ((resource-configuration/director/instance_type/id))

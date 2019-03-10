@@ -1,3 +1,10 @@
+resource_types:
+- name: pivnet
+  type: docker-image
+  source:
+    repository: pivotalcf/pivnet-resource
+    tags: latest-final
+
 resources:
 - name: pcf-automation
   type: pivnet
@@ -59,6 +66,6 @@ jobs:
       env: configuration
       vars: credentials
     params:
-      CONFIG_FILE: ((foundation))/config/((foundation))-bosh-director.yml
+      DIRECTOR_CONFIG_FILE: ((foundation))/config/((foundation))-bosh-director.yml
       VARS_FILES: vars/creds-((foundation))-((pivnet-product-slug)).yml
       ENV_FILE: ((foundation))/config/templates/env.yml
