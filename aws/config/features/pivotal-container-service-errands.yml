@@ -7,4 +7,4 @@
             "label": "Run smoke tests",
             "post_deploy": true
         }
-    }
+    ]
