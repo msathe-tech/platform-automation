@@ -37,14 +37,29 @@ networks-configuration:
       ]
     },
     {
-      name: ((networks-configuration/networks/pas/name)),
+      name: ((networks-configuration/networks/runtime/name)),
       subnets: [
         {
-          iaas_identifier: ((networks-configuration/networks/pas/az1/subnet_id)),
-          cidr: ((networks-configuration/networks/pas/az1/cidr)),
-          reserved_ip_ranges: ((networks-configuration/networks/pas/az1/reserved_ip_ranges)),
-          dns: ((networks-configuration/networks/pas/az1/dns)),
-          gateway: ((networks-configuration/networks/pas/az1/gateway)),
+          iaas_identifier: ((networks-configuration/networks/runtime/az1/subnet_id)),
+          cidr: ((networks-configuration/networks/runtime/az1/cidr)),
+          reserved_ip_ranges: ((networks-configuration/networks/runtime/az1/reserved_ip_ranges)),
+          dns: ((networks-configuration/networks/runtime/az1/dns)),
+          gateway: ((networks-configuration/networks/runtime/az1/gateway)),
+          availability_zone_names: [
+            ((az-configuration/az1)),
+          ]
+        }
+      ]
+    },
+    {
+      name: ((networks-configuration/networks/services/name)),
+      subnets: [
+        {
+          iaas_identifier: ((networks-configuration/networks/services/az1/subnet_id)),
+          cidr: ((networks-configuration/networks/services/az1/cidr)),
+          reserved_ip_ranges: ((networks-configuration/networks/services/az1/reserved_ip_ranges)),
+          dns: ((networks-configuration/networks/services/az1/dns)),
+          gateway: ((networks-configuration/networks/services/az1/gateway)),
           availability_zone_names: [
             ((az-configuration/az1)),
           ]
