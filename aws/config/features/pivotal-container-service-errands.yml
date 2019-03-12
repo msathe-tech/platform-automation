@@ -1,0 +1,10 @@
+- type: replace
+  path: /product-properties/.errands?
+  value:
+    value: [
+        {
+            "name": "smoke-tests",
+            "label": "Run smoke tests",
+            "post_deploy": true
+        }
+    }
