@@ -1,4 +1,0 @@
-- type: replace
-  path: /errand-config?/smoke-tests/post-deploy-state
-  value:
-    value: On

@@ -89,5 +89,4 @@ jobs:
     params:
       CONFIG_FILE: ((pivnet-product-slug))/((product-version))/product_and_ops.yml
       VARS_FILES: vars/((pivnet-product-slug))/((product-version))/product-default-vars.yml vars/((pivnet-product-slug))/((product-version))/resource-vars.yml vars/((pivnet-product-slug))/((product-version))/errand-vars.yml secrets/creds-((foundation))-((pivnet-product-slug)).yml
-      OPS_FILES: env/((foundation))/config/features/pivotal-container-service-errands.yml
       ENV_FILE: ((foundation))/config/templates/env.yml
