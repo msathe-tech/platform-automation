@@ -1,10 +1,4 @@
 - type: replace
-  path: /errands/errands?
+  path: /errand-config?/smoke-tests/post-deploy-state
   value:
-    value: [
-        {
-            "name": "smoke-tests",
-            "label": "Run smoke tests",
-            "post_deploy": true
-        }
-    ]
+    value: true
