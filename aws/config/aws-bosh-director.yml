@@ -10,7 +10,7 @@ properties-configuration:
     resurrector_enabled: ((director_configuration/resurrector_enabled))
   iaas_configuration:
     additional_cloud_properties:
-      access_key_id: ((iaas_configuration/additional_cloud_properties/access_key_id)),
+      access_key_id: ((iaas_configuration/additional_cloud_properties/access_key_id))
       secret_access_key: ((iaas_configuration/additional_cloud_properties/secret_access_key))
     key_pair_name: ((iaas_configuration/key_pair_name))
     region: ((iaas_configuration/region))
