@@ -9,10 +9,9 @@ properties-configuration:
     post_deploy_enabled: ((director_configuration/post_deploy_enabled))
     resurrector_enabled: ((director_configuration/resurrector_enabled))
   iaas_configuration:
-    additional_cloud_properties: {
+    additional_cloud_properties:
       access_key_id: ((iaas_configuration/additional_cloud_properties/access_key_id)),
       secret_access_key: ((iaas_configuration/additional_cloud_properties/secret_access_key))
-    }
     key_pair_name: ((iaas_configuration/key_pair_name))
     region: ((iaas_configuration/region))
     security_group: ((iaas_configuration/security_group))
